@@ -589,6 +589,134 @@
   .av-pcard li::before { content: ""; position: absolute; left: 2px; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
   .av-pcard.alt li::before { background: #5a3fb0; }
 
+  /* 건축학부 × 미래사회디자인 졸업요건 예시 (이 탭에서도 패널 전체가 아래로 스크롤) */
+  #major:has(#majorArch:not([hidden])) .panel-inner { flex: 1 0 auto; }
+  .arx { display: grid; gap: 34px; padding-bottom: 30px; color: var(--ink-2); font-size: 14.5px; line-height: 1.65; }
+  .arx[hidden] { display: none; }
+  .arx p { margin: 0; }
+  .arx ul { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
+  .arx li { list-style: disc; }
+  .arx b { color: var(--ink); font-weight: 700; }
+  .arx-header { display: grid; gap: 10px; padding: 22px 24px; border-radius: 18px; background: var(--brand-soft); border-top: 4px solid var(--brand); }
+  .arx-eyebrow { font-size: 13px; font-weight: 700; color: var(--brand); }
+  .arx-header h3 { font-size: clamp(20px, 2.8vh, 26px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; color: var(--ink); }
+  .arx-combo { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .arx-lede { font-size: 13.5px; }
+  .arx-section { display: grid; gap: 12px; min-width: 0; }
+  .arx-section .av-h { margin-bottom: 0; }
+  .arx-tag { display: inline-block; font-size: 12px; font-weight: 700; white-space: nowrap; color: var(--brand); background: #fff; border: 1px solid #c5d6e8; padding: 2px 10px; border-radius: 999px; }
+  .arx-tag.arx-solid { color: #fff; background: var(--brand); border-color: var(--brand); }
+  .arx-sum { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .arx-sum > div { display: grid; gap: 4px; align-content: start; padding: 16px 18px; border-radius: 16px; background: var(--bg-2); }
+  .arx-k { font-size: 13px; font-weight: 700; }
+  .arx-v { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; color: var(--brand); font-variant-numeric: tabular-nums; }
+  .arx-v span { font-size: 14px; font-weight: 700; margin-left: 2px; letter-spacing: 0; }
+  .arx-n { font-size: 12.5px; color: var(--ink-3); }
+  .arx-sum > .arx-hero { background: var(--brand); color: #fff; }
+  .arx-hero .arx-v, .arx-hero .arx-n { color: #fff; }
+  .arx-hero .arx-n { opacity: .75; }
+  .arx-rules { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .arx-rule { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 6px 24px; padding: 14px 18px; border-top: 1px solid var(--line); }
+  .arx-rule:first-child { border-top: 0; }
+  .arx-rule h5 { display: grid; gap: 6px; justify-items: start; align-content: start; font-size: 15px; font-weight: 800; color: var(--ink); }
+  .arx-rule > div { display: grid; gap: 4px; }
+  .arx-src { font-size: 12.5px; color: var(--ink-3); }
+  .arx-rule.arx-exempt { background: var(--bg-2); }
+  .arx-rule.arx-exempt .arx-tag { color: var(--ink-3); border-color: #d5d5d5; }
+  .arx-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; }
+  .arx-legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border-radius: 3px; background: var(--bg-2); border: 1px solid #bbb; }
+  .arx-legend .arx-lb { background: var(--brand-soft); border-color: var(--brand); }
+  .arx-legend .arx-la { background: #fff7ec; border-color: #9a5a12; }
+  .arx-legend .arx-lo { background: none; border: 1px dashed #aaa; }
+  .arx-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; scrollbar-width: thin; }
+  .arx-scroll table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .arx-scroll th, .arx-scroll td { padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .arx-scroll thead th { background: #0a3866; color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; border-top: 0; }
+  .arx-scroll .arx-num { text-align: right; white-space: nowrap; }
+  .arx-grid td { font-size: 14px; }
+  .arx-grid td.arx-sem { width: 39%; }
+  .arx-yr { font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .arx-c { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; margin: 3px 0; padding: 3px 8px; border-radius: 6px; background: var(--bg-2); }
+  .arx-c b { font-weight: 600; }
+  .arx-c em { font-style: normal; font-size: 12px; color: var(--ink-3); }
+  .arx-c.arx-blue { background: var(--brand-soft); }
+  .arx-c.arx-blue b, .arx-c.arx-blue em { color: var(--brand); }
+  .arx-c.arx-adv { background: #fff7ec; }
+  .arx-c.arx-adv b, .arx-c.arx-adv em { color: #9a5a12; }
+  .arx-c.arx-off { background: none; outline: 1px dashed #bbb; outline-offset: -1px; }
+  .arx-c.arx-off b, .arx-c.arx-off em { color: #a0a0a0; }
+  .arx-c.arx-off b { text-decoration: line-through; }
+  .arx-scroll tr.arx-total td { font-weight: 800; color: var(--ink); background: var(--bg-2); border-top: 1px solid #bbb; }
+  .arx-note { font-size: 13px; color: var(--ink-3); }
+  .arx-notes { display: grid; gap: 4px; }
+  .arx-units { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .arx-unit { display: grid; gap: 10px; align-content: start; padding: 18px 20px; border-radius: 18px; background: var(--brand-soft); border-top: 4px solid var(--brand); }
+  .arx-unit:last-child { background: #fff7ec; border-top-color: #9a5a12; }
+  .arx-unit h5 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 16px; font-weight: 800; color: var(--ink); }
+  .arx-unit h5 span { font-size: 26px; font-weight: 800; color: var(--brand); font-variant-numeric: tabular-nums; }
+  .arx-unit:last-child h5 span { color: #9a5a12; }
+  .arx-unit ul { font-size: 14px; }
+  .arx-unit li span { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .arx-ledger td { font-size: 14px; }
+  .arx-ledger td:first-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .arx-ledger td.arx-hl { background: var(--brand-soft); font-weight: 700; color: var(--brand); }
+  .arx-ledger thead th.arx-hl { background: var(--brand); }
+  .arx-ptab td { font-size: 14px; }
+  .arx-ptab td small { display: block; font-size: 12px; color: var(--ink-3); }
+  .arx-ptab td.arx-b { color: var(--brand); font-weight: 600; }
+  .arx-ptab td.arx-m { color: #5a3fb0; font-weight: 700; white-space: nowrap; }
+  .arx-ptab tr.arx-yr1 td { color: var(--ink-3); }
+  .arx-meter { position: relative; height: 6px; min-width: 80px; margin-top: 6px; border-radius: 999px; overflow: hidden; background: var(--line); }
+  .arx-meter i { position: absolute; inset: 0 auto 0 0; background: var(--brand); }
+  .arx-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .arx-chk { display: grid; gap: 4px; align-content: start; padding: 14px 16px; border-radius: 14px; background: #fdecea; }
+  .arx-chk h5 { font-size: 15px; font-weight: 800; color: #a8392c; }
+  .arx-chk p { font-size: 13.5px; }
+  .arx-footer { display: grid; gap: 4px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+  .arx-footer a { color: var(--brand); text-decoration: underline; }
+  @media (max-width: 720px) {
+    .arx { gap: 26px; font-size: 14px; }
+    .arx-header { padding: 18px; }
+    .arx-sum { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .arx-sum > div { padding: 14px; }
+    .arx-v { font-size: 28px; }
+    .arx-rule, .arx-units, .arx-checks { grid-template-columns: minmax(0, 1fr); }
+    .arx-rule { padding: 14px; }
+    /* 과목표·학기별 배분은 휴대폰에서 줄 단위 카드로 */
+    .arx-grid, .arx-grid tbody, .arx-grid tr, .arx-grid td,
+    .arx-ptab, .arx-ptab tbody, .arx-ptab tr, .arx-ptab td,
+    .arx-ledger, .arx-ledger tbody, .arx-ledger tr, .arx-ledger td { display: block; width: auto; }
+    .arx-grid thead, .arx-ptab thead, .arx-ledger thead { display: none; }
+    .arx-grid tr, .arx-ptab tr, .arx-ledger tr { padding: 10px 14px; border-top: 1px solid var(--line); }
+    .arx-grid tr:first-child, .arx-ptab tr:first-child, .arx-ledger tr:first-child { border-top: 0; }
+    .arx-scroll .arx-grid td, .arx-scroll .arx-ptab td, .arx-scroll .arx-ledger td { padding: 3px 0; border: 0; text-align: left; white-space: normal; }
+    .arx-ledger td:empty { display: none; }
+    .arx-ledger td.arx-hl { background: none; }
+    .arx-ledger td:nth-child(n+3)::before { display: inline-block; margin-right: 8px; font-size: 12px; font-weight: 700; color: var(--ink-3); }
+    .arx-ledger td:nth-child(3)::before { content: "최소 기준"; }
+    .arx-ledger td:nth-child(4)::before { content: "인증 경로"; }
+    .arx-ledger td:nth-child(5)::before { content: "전공학점 인정"; }
+    .arx-grid td.arx-sem { width: auto; }
+    .arx-grid td.arx-sem::before, .arx-grid td.arx-num::before, .arx-ptab td:not(:first-child)::before { display: block; font-size: 12px; font-weight: 700; color: var(--ink-3); }
+    .arx-grid td.arx-num { display: flex; justify-content: space-between; gap: 12px; }
+    .arx-grid td.arx-num::before, .arx-ptab td:not(:first-child)::before { display: inline-block; margin-right: 8px; }
+    .arx-grid td:nth-child(2)::before { content: "1학기"; }
+    .arx-grid td:nth-child(3)::before { content: "2학기"; }
+    .arx-grid tr:not(.arx-total) td:nth-child(4)::before { content: "전공기초(필수)"; }
+    .arx-grid tr:not(.arx-total) td:nth-child(5)::before { content: "전공핵심"; }
+    .arx-grid tr.arx-total td:nth-child(2)::before { content: "전공기초(필수)"; }
+    .arx-grid tr.arx-total td:nth-child(3)::before { content: "전공핵심"; }
+    .arx-grid .arx-yr::after { content: "학년"; }
+    .arx-scroll tr.arx-total { background: var(--bg-2); }
+    .arx-scroll tr.arx-total td { border-top: 0; }
+    .arx-ptab td:nth-child(2)::before { content: "건축학부"; }
+    .arx-ptab td:nth-child(3)::before { content: "전공기초 보충"; }
+    .arx-ptab td:nth-child(4)::before { content: "미래사회디자인"; }
+    .arx-ptab td:nth-child(5)::before { content: "TDP"; }
+    .arx-ptab td:nth-child(6)::before { content: "교양·봉사"; }
+    .arx-ptab td:nth-child(7)::before { content: "합계 / 23"; }
+  }
+
   /* 개설과목 표 */
   .crs { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: clamp(8px, 1.4vh, 14px); }
   .crs[hidden] { display: none; }
@@ -679,6 +807,7 @@
   }
   .tab:hover { border-color: var(--ink); color: var(--ink); }
   .tab.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  @media (min-width: 721px) { .major-tabs .tab { padding: 0 17px; } } /* 탭 5개여도 제목이 한 줄로 */
   .prog-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 24px; }
   .prog-card { display: flex; flex-direction: column; min-height: 0; }
   .prog-card.hide { display: none; }
@@ -1839,6 +1968,7 @@
             <button class="tab" role="tab" aria-selected="false" aria-controls="majorMain" id="majorTab2">주전공 자유선택제도</button>
             <button class="tab" role="tab" aria-selected="false" aria-controls="majorAvail" id="majorTab4">선택 가능 전공</button>
             <button class="tab" role="tab" aria-selected="false" aria-controls="majorCourse" id="majorTab3">개설과목</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="majorArch" id="majorTab5">건축학부</button>
           </div>
         </div>
 
@@ -2034,6 +2164,188 @@
             </table>
           </div>
           <p class="crs-count" id="crsCount"></p>
+        </div>
+
+        <!-- 서브탭 5: 건축학부 × 미래사회디자인 졸업요건 예시 -->
+        <div class="arx" id="majorArch" role="tabpanel" aria-labelledby="majorTab5" hidden>
+          <div class="arx-header">
+            <div class="arx-eyebrow">한양YK인터칼리지 · 2026학번 졸업요건 설계안 · 건축학부 희망자 예시</div>
+            <h3>주전공 건축학부 × 부전공 미래사회디자인 프로그램</h3>
+            <div class="arx-combo"><span class="arx-tag arx-solid">주전공</span> 공과대학 건축학부 (건축학사 5년제) <span class="arx-tag">다전공</span> 미래사회디자인 프로그램 · 프로그램 부전공 24학점</div>
+            <p class="arx-lede">한양YK인터칼리지 졸업 필수요건(통합가이드 5쪽)을 기본으로 하고, 건축학부 전공학점(100~300단위·400단위)은 학사안내 책자의 건축학부 기준을 따릅니다. 과목의 이수구분과 이수단위는 한양대 교육과정 조회의 「2024-2027 공과대학 건축학부 개설과목」 기준입니다. 전공기초(필수) 과목(학과 교과과정표의 파란색 과목)은 학년과 관계없이 모두 이수해야 합니다.</p>
+          </div>
+          <section class="arx-section" aria-labelledby="arx-s-sum">
+            <h4 class="av-h" id="arx-s-sum"><span class="av-no">01</span>요약</h4>
+            <div class="arx-sum">
+              <div class="arx-hero"><span class="arx-k">졸업학점</span><span class="arx-v">140<span>학점 이상</span></span><span class="arx-n">한양YK인터칼리지 입학생 기준</span></div>
+              <div><span class="arx-k">건축학부 전공</span><span class="arx-v">108<span>학점</span></span><span class="arx-n">100~300단위 90 · 400단위 18</span></div>
+              <div><span class="arx-k">미래사회디자인 부전공</span><span class="arx-v">24<span>학점</span></span><span class="arx-n">단위 구분 없음</span></div>
+              <div><span class="arx-k">필수 이수 합계</span><span class="arx-v">186<span>학점</span></span><span class="arx-n">건축학인증 이수 경로는 204학점</span></div>
+            </div>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-rules">
+            <h4 class="av-h" id="arx-s-rules"><span class="av-no">02</span>졸업 필수요건 <small>통합가이드 5쪽 요건 + 건축학부 기준</small></h4>
+            <div class="arx-rules">
+              <div class="arx-rule">
+                <h5>1학년 필수 교과목 <span class="arx-tag">필수 이수</span></h5>
+                <div><ul><li>융합기초교육과정 교양필수 <b>36학점</b></li><li>GRI(Global Research Immersion, HIC1008) <b>3학점</b>: 주전공 전공학점으로 인정</li></ul><p class="arx-src">통합가이드 5쪽 01 · 학사안내 39쪽</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>건축 전공기초(필수) 7과목 <span class="arx-tag">학년 무관 필수</span></h5>
+                <div><p>이수구분이 「전공기초(필수)」인 과목 <b>21학점</b>. 1학년 4과목(12학점)과 2~3학년 3과목(9학점)을 모두 이수합니다. 학과 교과과정표에서 파란색으로 표시된 과목과 같습니다.</p><p class="arx-src">통합가이드 5쪽 02 · 건축학부 교과과정 Version 2026 · 교육과정 조회 이수구분</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>건축학부 전공학점 <span class="arx-tag">108학점 이상</span></h5>
+                <div><ul><li>100~300단위 <b>90학점</b> 이상: GRI 3 + 전공기초(필수) 21 + 전공핵심 66 이상</li><li>400단위 <b>18학점</b> 이상: 400단위 과목은 모두 전공심화 (설계스튜디오7·8 각 6학점, 그 외 3학점)</li><li>한양YK 소속 외 전공 기준(48학점, 400단위 6학점)은 적용하지 않음</li></ul><p class="arx-src">학사안내 37쪽 표1-1 · 39쪽 표1-2 「건축학부 90 / 18 / 108」</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>미래사회디자인 프로그램 부전공 <span class="arx-tag">24학점</span></h5>
+                <div><ul><li>프로그램 교육과정 지정 과목 24학점, 단위 구분 없음</li><li>2026학번은 프로그램 부전공만 신청 가능</li><li>2~5학년 <b>매 학기 1과목(3학점) 이상</b> 신청: 다전공 과목을 1과목 이상 신청한 학기에 최대 수강신청 학점이 <b>23학점</b>으로 늘어남. 8개 학기 × 3학점 = 24학점</li><li>2·3학년 프로젝트(CDP·IDP)는 필수가 아님</li></ul><p class="arx-src">학사안내 39쪽 부전공 최소 이수학점 · 프로젝트 과목 표</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>커리어개발Ⅱ <span class="arx-tag">필수 이수</span></h5>
+                <div><p>건축학부 교양필수 중 <b>커리어개발Ⅱ: 취·창업진로포트폴리오(GEN5100, 1학점)</b>만 이수. 건축학부 편성상 4학년 2학기 개설.</p><p class="arx-src">통합가이드 5쪽 05</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>4학년 TDP <span class="arx-tag">필수 이수(연단위)</span></h5>
+                <div><p>TransDisciplinary Project(HIC4022) <b>12학점</b>. 한양YK인터칼리지 입학생 졸업 필수 교과목입니다. 한양YK 소속 외 전공 진입생은 주전공 전공학점으로 인정되지 않습니다.</p><p class="arx-src">통합가이드 5쪽 06 · 학사안내 39쪽</p></div>
+              </div>
+              <div class="arx-rule">
+                <h5>사회봉사 · 핵심교양 <span class="arx-tag">필수 이수</span></h5>
+                <div><ul><li>사회봉사 <b>1학점</b> (졸업 전까지)</li><li>핵심교양 <b>4학점</b> (영역 무관). 건축학부 일반 기준 10학점이 아닌 한양YK 기준 적용</li></ul><p class="arx-src">통합가이드 5쪽 07·08</p></div>
+              </div>
+              <div class="arx-rule arx-exempt">
+                <h5>이수 면제 <span class="arx-tag">면제</span></h5>
+                <div><ul>
+                  <li>건축학부 1학년 교양필수: 과학기술의철학적이해, 말과글, 문화기술인간, 사랑의실천1, 커리어개발Ⅰ, 통합사고와읽기의기술, Personal Branding In Digital Markets, 공학도를위한창의적컴퓨팅, 전문학술영어</li>
+                  <li>2~4학년 교양필수(커리어개발Ⅱ 제외): 스토리텔링의설계와전략, 테크노경영학, 사랑의실천2·3·4, 인공지능과기계학습, 공학도를위한창의적프로그래밍</li>
+                  <li>1학년 전공핵심: 서양건축사(ARD3005)</li>
+                  <li>한양YK 프로젝트 과목 중 2·3학년 CDP·IDP는 필수가 아님 (4학년 TDP는 필수)</li>
+                </ul></div>
+              </div>
+            </div>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-grid">
+            <h4 class="av-h" id="arx-s-grid"><span class="av-no">03</span>건축학부 과목표 <small>2024-2027 공과대학 건축학부 개설과목 · 학수번호 · 학점 · 이수단위</small></h4>
+            <div class="arx-legend"><span><i class="arx-lb"></i>전공기초(필수): 필수</span><span><i></i>전공핵심: 100~300단위 학점 충족용</span><span><i class="arx-la"></i>전공심화: 400단위, 18학점 선택</span><span><i class="arx-lo"></i>이수 면제</span></div>
+            <div class="arx-scroll">
+              <table class="arx-grid">
+                <thead><tr><th>학년</th><th>1학기</th><th>2학기</th><th class="arx-num">전공기초(필수)</th><th class="arx-num">전공핵심</th></tr></thead>
+                <tbody>
+                  <tr><td class="arx-yr">1</td>
+                    <td class="arx-sem"><span class="arx-c arx-blue"><b>건축의이해와표현</b><em>ARE1058 · 3 · 100</em></span><span class="arx-c arx-blue"><b>기본설계1</b><em>ARE4086 · 3 · 100</em></span></td>
+                    <td class="arx-sem"><span class="arx-c arx-blue"><b>기본설계2</b><em>ARE4087 · 3 · 100</em></span><span class="arx-c arx-blue"><b>컴퓨터활용디자인기본</b><em>ARE2070 · 3 · 100</em></span><span class="arx-c arx-off"><b>서양건축사</b><em>ARD3005 · 3 · 100 · 면제</em></span></td>
+                    <td class="arx-num">12</td><td class="arx-num">—</td></tr>
+                  <tr><td class="arx-yr">2</td>
+                    <td class="arx-sem"><span class="arx-c arx-blue"><b>건축계획</b><em>ARD3063 · 3 · 100</em></span><span class="arx-c"><b>건축설계스튜디오1</b><em>ARE4088 · 6 · 200</em></span><span class="arx-c"><b>건축구조시스템</b><em>ARE5028 · 3 · 200</em></span><span class="arx-c"><b>한국건축사</b><em>ARD4005 · 3 · 200</em></span></td>
+                    <td class="arx-sem"><span class="arx-c arx-blue"><b>건축과컴퓨터</b><em>ARE2078 · 3 · 200</em></span><span class="arx-c"><b>건축설계스튜디오2</b><em>ARE4089 · 6 · 200</em></span><span class="arx-c"><b>건축구조역학</b><em>ARE3083 · 3 · 200</em></span><span class="arx-c"><b>근대건축의역사와이론</b><em>ARE3084 · 3 · 200</em></span></td>
+                    <td class="arx-num">6</td><td class="arx-num">24</td></tr>
+                  <tr><td class="arx-yr">3</td>
+                    <td class="arx-sem"><span class="arx-c arx-blue"><b>컴퓨터활용건축설계특론</b><em>ARE3082 · 3 · 300</em></span><span class="arx-c"><b>건축설계스튜디오3</b><em>ARE4092 · 6 · 200</em></span><span class="arx-c"><b>건축설비개론</b><em>ARE2007 · 3 · 200</em></span><span class="arx-c"><b>건축재료및활용</b><em>ARE3085 · 3 · 200</em></span></td>
+                    <td class="arx-sem"><span class="arx-c"><b>건축설계스튜디오4</b><em>ARE4093 · 6 · 300</em></span><span class="arx-c"><b>건축과도시설계</b><em>ARE3087 · 3 · 300</em></span><span class="arx-c"><b>건축시공계획</b><em>ARE5011 · 3 · 300</em></span><span class="arx-c"><b>건축환경공학</b><em>ARD2052 · 3 · 300</em></span></td>
+                    <td class="arx-num">3</td><td class="arx-num">27</td></tr>
+                  <tr><td class="arx-yr">4</td>
+                    <td class="arx-sem"><span class="arx-c"><b>건축설계스튜디오5</b><em>ARE4095 · 6 · 300</em></span><span class="arx-c"><b>현대건축의역사와이론</b><em>ARE4106 · 3 · 300</em></span><span class="arx-c"><b>환경과생태건축</b><em>ARE4026 · 3 · 300</em></span><span class="arx-c"><b>건설경영</b><em>ARE5016 · 3 · 300</em></span><span class="arx-c"><b>주거론</b><em>ARD2001 · 3 · 300</em></span><span class="arx-c arx-adv"><b>건축공간행태론</b><em>ARE5000 · 3 · 400</em></span><span class="arx-c arx-adv"><b>디지털디자인스튜디오</b><em>ARE5001 · 3 · 400</em></span><span class="arx-c arx-adv"><b>예술과기술</b><em>ARE4101 · 3 · 400</em></span></td>
+                    <td class="arx-sem"><span class="arx-c"><b>건축설계스튜디오6</b><em>ARE4096 · 6 · 300</em></span><span class="arx-c"><b>건축통합시스템</b><em>ARE3096 · 3 · 300</em></span><span class="arx-c"><b>건축법과실무</b><em>ARE3097 · 3 · 300</em></span><span class="arx-c arx-adv"><b>건축과인터랙션</b><em>ARE4109 · 3 · 400</em></span><span class="arx-c arx-adv"><b>도시설계론</b><em>URE4010 · 3 · 400</em></span><span class="arx-c arx-adv"><b>조경이론및설계</b><em>URE4006 · 3 · 400</em></span></td>
+                    <td class="arx-num">—</td><td class="arx-num">30</td></tr>
+                  <tr><td class="arx-yr">5</td>
+                    <td class="arx-sem"><span class="arx-c"><b>건축기획</b><em>ARD4012 · 3 · 300</em></span><span class="arx-c arx-adv"><b>건축설계스튜디오7</b><em>ARE4097 · 6 · 400</em></span><span class="arx-c arx-adv"><b>건축연구</b><em>ARE5003 · 3 · 400</em></span><span class="arx-c arx-adv"><b>보존과활용</b><em>ARE5041 · 3 · 400</em></span><span class="arx-c arx-adv"><b>실내디자인</b><em>APA4011 · 3 · 400</em></span></td>
+                    <td class="arx-sem"><span class="arx-c arx-adv"><b>건축설계스튜디오8</b><em>ARE4098 · 6 · 400</em></span><span class="arx-c arx-adv"><b>UX기반공간연구</b><em>ARE5045 · 3 · 400</em></span><span class="arx-c arx-adv"><b>건축상세미학</b><em>ARE4027 · 3 · 400</em></span><span class="arx-c arx-adv"><b>한국근현대건축의이해</b><em>ARE5029 · 3 · 400</em></span></td>
+                    <td class="arx-num">—</td><td class="arx-num">3</td></tr>
+                  <tr class="arx-total"><td colspan="3">합계 (전공심화 400단위는 선택 이수로 별도 산정)</td><td class="arx-num">21</td><td class="arx-num">84</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="arx-notes">
+              <p class="arx-note">과목 표기: 학수번호 · 학점 · 이수단위. 기초표현(ARE1056)은 2025년 2학기에 종료되어 2026학번에는 해당하지 않습니다.</p>
+              <p class="arx-note">학과 교과과정표와 개설과목 목록의 과목명이 다른 경우 개설과목 목록 기준입니다. 건축의 이해 → 건축의이해와표현, 건축구조계획 → 건축통합시스템, 건축실무 → 건축법과실무, 건축작품분석 → 한국근현대건축의이해.</p>
+            </div>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-unit">
+            <h4 class="av-h" id="arx-s-unit"><span class="av-no">04</span>이수단위별 학점 산정 <small>최소 기준 108학점</small></h4>
+            <div class="arx-units">
+              <div class="arx-unit">
+                <h5>100~300단위 <span>90</span></h5>
+                <ul>
+                  <li>GRI (100단위) <span>3</span></li>
+                  <li>전공기초(필수) 7과목 (100단위 15 · 200단위 3 · 300단위 3) <span>21</span></li>
+                  <li>전공핵심 2~5학년 84학점 중 <span>66 이상</span></li>
+                </ul>
+                <p class="arx-note">설계스튜디오1~6(36학점)은 스튜디오7·8로 이어지는 과정이므로 66학점 안에 포함하는 것을 권장합니다.</p>
+              </div>
+              <div class="arx-unit">
+                <h5>400단위 <span>18</span></h5>
+                <ul>
+                  <li>건축설계스튜디오7 (5학년 1학기) <span>6</span></li>
+                  <li>건축설계스튜디오8 (5학년 2학기) <span>6</span></li>
+                  <li>4·5학년 전공심화 3학점 과목 2개 <span>6</span></li>
+                </ul>
+                <p class="arx-note">2~5학년 전공핵심은 모두 200·300단위라서 400단위 18학점은 전공심화로만 채울 수 있습니다.</p>
+              </div>
+            </div>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-ledger">
+            <h4 class="av-h" id="arx-s-ledger"><span class="av-no">05</span>학점 구성 <small>최소 기준과 건축학인증 이수 경로 비교</small></h4>
+            <div class="arx-scroll">
+              <table class="arx-ledger">
+                <thead><tr><th>구분</th><th>내용</th><th class="arx-num arx-hl">최소 기준</th><th class="arx-num">인증 경로</th><th>전공학점 인정</th></tr></thead>
+                <tbody>
+                  <tr><td>1학년 융합기초 교양필수</td><td>한양YK인터칼리지 1학년 교육과정</td><td class="arx-num arx-hl">36</td><td class="arx-num">36</td><td>—</td></tr>
+                  <tr><td>GRI</td><td>HIC1008 · 1학년 · 100단위</td><td class="arx-num arx-hl">3</td><td class="arx-num">3</td><td>주전공(건축)</td></tr>
+                  <tr><td>건축 전공기초(필수)</td><td>7과목, 학년 무관</td><td class="arx-num arx-hl">21</td><td class="arx-num">21</td><td>주전공(건축)</td></tr>
+                  <tr><td>건축 전공핵심</td><td>2~5학년 200·300단위 (인증 경로는 전 과목)</td><td class="arx-num arx-hl">66</td><td class="arx-num">84</td><td>주전공(건축)</td></tr>
+                  <tr><td>건축 전공심화</td><td>400단위 (스튜디오7·8 + 2과목)</td><td class="arx-num arx-hl">18</td><td class="arx-num">18</td><td>주전공(건축)</td></tr>
+                  <tr><td>미래사회디자인 부전공</td><td>프로그램 지정 과목 · 2~5학년 매 학기 1과목</td><td class="arx-num arx-hl">24</td><td class="arx-num">24</td><td>부전공</td></tr>
+                  <tr><td>TDP</td><td>HIC4022 · 4학년 연단위</td><td class="arx-num arx-hl">12</td><td class="arx-num">12</td><td>미인정</td></tr>
+                  <tr><td>핵심교양</td><td>영역 무관</td><td class="arx-num arx-hl">4</td><td class="arx-num">4</td><td>—</td></tr>
+                  <tr><td>커리어개발Ⅱ</td><td>GEN5100 · 4학년 2학기</td><td class="arx-num arx-hl">1</td><td class="arx-num">1</td><td>—</td></tr>
+                  <tr><td>사회봉사</td><td>졸업 전까지</td><td class="arx-num arx-hl">1</td><td class="arx-num">1</td><td>—</td></tr>
+                  <tr class="arx-total"><td>합계</td><td>건축 전공학점: 최소 108 / 인증 경로 126</td><td class="arx-num arx-hl">186</td><td class="arx-num">204</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="arx-note">두 경로 모두 한양YK 입학생 졸업학점 140학점을 넘으므로 총 학점 요건은 자동으로 충족됩니다. 인증 경로는 학과 교과과정표의 “전공기초와 전공필수는 건축학인증에 필요한 최소과목으로 모든 학생이 이수” 기준에 맞춘 것입니다(서양건축사 제외).</p>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-plan">
+            <h4 class="av-h" id="arx-s-plan"><span class="av-no">06</span>학기별 배분 예시 <small>인증 경로 204학점 기준 · 매 학기 미래사회디자인 1과목 · 학기당 최대 23학점</small></h4>
+            <div class="arx-scroll">
+              <table class="arx-ptab">
+                <thead><tr><th>학기</th><th>건축학부</th><th>1학년 전공기초(필수) 보충</th><th>미래사회디자인</th><th>TDP</th><th>교양·봉사</th><th class="arx-num">합계 / 23</th></tr></thead>
+                <tbody>
+                  <tr class="arx-yr1"><td class="arx-yr">1학년</td><td>GRI 3</td><td>—</td><td>—</td><td>—</td><td>융합기초 교양필수 36</td><td class="arx-num">39<small>2개 학기</small></td></tr>
+                  <tr><td class="arx-yr">2-1</td><td>15<small>스튜디오1 · 건축계획 · 건축구조시스템 · 한국건축사</small></td><td class="arx-b">기본설계1 3</td><td class="arx-m">1과목 3</td><td>—</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">2-2</td><td>15<small>스튜디오2 · 건축과컴퓨터 · 건축구조역학 · 근대건축의역사와이론</small></td><td class="arx-b">기본설계2 3</td><td class="arx-m">1과목 3</td><td>—</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">3-1</td><td>15<small>스튜디오3 · 컴퓨터활용건축설계특론 · 건축설비개론 · 건축재료및활용</small></td><td class="arx-b">건축의이해와표현 3</td><td class="arx-m">1과목 3</td><td>—</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">3-2</td><td>15<small>스튜디오4 · 건축과도시설계 · 건축시공계획 · 건축환경공학</small></td><td class="arx-b">컴퓨터활용디자인기본 3</td><td class="arx-m">1과목 3</td><td>—</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">4-1</td><td>12<small>스튜디오5 · 현대건축의역사와이론 · 환경과생태건축</small></td><td>—</td><td class="arx-m">1과목 3</td><td>6</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">4-2</td><td>9<small>스튜디오6 · 건축통합시스템</small></td><td>—</td><td class="arx-m">1과목 3</td><td>6</td><td>커리어개발Ⅱ 1 · 핵심교양 2</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">5-1</td><td>18<small>스튜디오7 · 건축기획 · 전공심화 1과목(400단위) · 건설경영·주거론(4-1에서 이동)</small></td><td>—</td><td class="arx-m">1과목 3</td><td>—</td><td>—</td><td class="arx-num">21<div class="arx-meter"><i style="width:91.3%"></i></div></td></tr>
+                  <tr><td class="arx-yr">5-2</td><td>12<small>스튜디오8 · 전공심화 1과목(400단위) · 건축법과실무(4-2에서 이동)</small></td><td>—</td><td class="arx-m">1과목 3</td><td>—</td><td>핵심교양 2 · 사회봉사 1</td><td class="arx-num">18<div class="arx-meter"><i style="width:78.3%"></i></div></td></tr>
+                  <tr class="arx-total"><td>합계</td><td>114 (GRI 포함)</td><td>12</td><td>24</td><td>12</td><td>42</td><td class="arx-num">204</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="arx-notes">
+              <p class="arx-note">4학년에 TDP 12학점이 들어가면 학과 편성대로는 4-1이 27학점이 되어 23학점을 넘습니다. 그래서 설계스튜디오가 아닌 건설경영·주거론(1학기 개설)은 5-1로, 건축법과실무(2학기 개설)는 5-2로 옮겼습니다.</p>
+              <p class="arx-note">TDP는 연단위 12학점을 학기당 6학점으로 나눠 계산했습니다. 1학년 전공기초(필수) 4과목은 지정된 학기에만 개설되므로 기본설계1·건축의이해와표현은 1학기, 기본설계2·컴퓨터활용디자인기본은 2학기에 배치했습니다.</p>
+              <p class="arx-note">최소 기준(186학점)으로 이수하면 전공핵심을 18학점 덜 들어 2~5학년 학기당 평균 18.4학점이고, 인증 경로는 20.6학점입니다.</p>
+            </div>
+          </section>
+          <section class="arx-section" aria-labelledby="arx-s-check">
+            <h4 class="av-h" id="arx-s-check"><span class="av-no">07</span>확정 전 확인 사항</h4>
+            <div class="arx-checks">
+              <div class="arx-chk"><h5>전공핵심 이수 범위</h5><p>학사 규정상 필수는 전공기초(필수)와 108학점(90/18)입니다. 건축학인증을 받으려면 학과가 전공핵심 전 과목 이수를 요구하므로, 인증 경로(204학점)를 기본 안내로 할지 결정이 필요합니다.</p></div>
+              <div class="arx-chk"><h5>기본설계1·2 선수 관계</h5><p>기본설계1·2를 2학년에 이수하면 같은 학기의 건축설계스튜디오1·2보다 먼저 듣지 못합니다. 동시 수강 허용, 1학년 계절학기 이수, 대체인정 중 어느 방식인지 건축학부와 협의가 필요합니다.</p></div>
+              <div class="arx-chk"><h5>서양건축사와 건축학인증</h5><p>서양건축사는 1학년 전공핵심이라 면제했지만, 학과 표의 문화 영역 최소 12학점에 포함됩니다. 면제 시 인증 영역 학점이 부족해지는지 학과 확인이 필요합니다.</p></div>
+              <div class="arx-chk"><h5>TDP 학기별 학점 반영</h5><p>연단위 TDP 12학점이 학기별 수강신청 학점에 6학점씩 잡히는지, 한 학기에 12학점으로 잡히는지에 따라 4학년 배분이 달라집니다. 4학년 과목을 5학년으로 옮겨 들을 때 선수 관계 문제가 없는지도 학과 확인이 필요합니다.</p></div>
+              <div class="arx-chk"><h5>TDP 대체 범위</h5><p>통합가이드는 TDP로 진입 학부의 졸업논문·인턴십 과목을 대체 이수 처리합니다. 건축학부에서 대체되는 과목(예: 건축법과실무, 건축연구)이 정해지면 합계가 줄어듭니다.</p></div>
+              <div class="arx-chk"><h5>GRI의 108학점 산입</h5><p>“소속 외 전공은 1학년 프로젝트만 주전공 학점 인정” 규정을 건축학부에도 적용해 GRI 3학점을 100~300단위 90학점에 포함했습니다. 제외하면 전공핵심을 69학점 이상 이수해야 합니다.</p></div>
+            </div>
+          </section>
+          <div class="arx-footer">
+            <span>근거: 2026-2학기 서울캠퍼스 학사안내 책자 37·39쪽(표1-1, 표1-2) · 2026학년도 한양YK인터칼리지 전공선택 통합가이드 4·5쪽 · 한양대 교육과정 조회 「2024-2027 공과대학 건축학부 개설과목」 · <a href="https://www.architecture.hanyang.ac.kr/undergraduate" target="_blank" rel="noopener">건축학부 건축학사 교과과정 2024~2027 (Version 2026, 2026.04.01)</a></span>
+            <span>미래사회디자인 프로그램의 지정 교과목 목록은 이 문서에 포함하지 않았습니다.</span>
+          </div>
         </div>
       </div>
     </section>
