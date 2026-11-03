@@ -105,6 +105,14 @@
   .bk-dlg { width: min(640px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); margin: auto; border: 0; border-radius: var(--radius); padding: 26px 28px; box-shadow: 0 24px 60px rgba(0,0,0,.25); color: var(--ink); scrollbar-width: thin; overflow-x: hidden; }
   .bk-dlg::backdrop { background: rgba(10,30,60,.45); }
   .bk-view[hidden] { display: none !important; }
+  .cdp-dlg { width: min(500px, calc(100vw - 32px)); }
+  .cdp-steps { display: grid; gap: 8px; margin: 14px 0 16px; padding: 0; list-style: none; }
+  .cdp-steps li { display: grid; grid-template-columns: auto minmax(0, 1fr) 26px; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: var(--brand-soft); }
+  .cdp-no { width: 34px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: var(--brand); color: #fff; font-size: 14px; font-weight: 800; }
+  .cdp-steps p { margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.45; color: var(--ink); word-break: keep-all; }
+  .cdp-steps a { display: block; font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: underline; }
+  .cdp-steps svg { width: 26px; height: 26px; fill: none; stroke: var(--brand); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .cdp-go { display: flex; align-items: center; justify-content: center; width: 100%; }
   .bk-lock { width: 56px; height: 56px; margin: 6px auto 14px; border-radius: 18px; background: var(--brand-soft); display: grid; place-items: center; }
   .bk-lock svg { width: 28px; height: 28px; fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .bk-lock.ok { background: #e3f6f3; }
@@ -943,8 +951,6 @@
   .m-menu.open { transform: none; }
   .m-menu a { display: block; font-size: 22px; font-weight: 700; padding: 16px 0; border-bottom: 1px solid var(--line); }
   .m-menu a.on { color: var(--brand); }
-  .m-menu .m-login { color: var(--ink) !important; border: 1px solid var(--line) !important; }
-  .m-menu .m-login + .btn { margin-top: 10px; }
   .m-menu .btn[hidden] { display: none; }
   .m-menu .btn { margin-top: 24px; width: 100%; justify-content: center; height: 52px; color: #fff; border: 0; }
 
@@ -1500,8 +1506,6 @@
       <a href="#help" data-go>HELP CENTRE</a>
     </nav>
     <div class="nav-util">
-      <button type="button" class="btn btn-line" id="loginBtn">로그인</button>
-      <div class="user-chip" id="userChip" hidden><img alt="" id="userPic" referrerpolicy="no-referrer"><span id="userName"></span><button type="button" id="logoutBtn">로그아웃</button></div>
       <button type="button" class="btn btn-primary" data-book>상담 예약</button>
       <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
     </div>
@@ -1516,7 +1520,6 @@
   <a href="#program" data-go>프로그램</a>
   <a href="#news" data-go>소식·일정</a>
   <a href="#help" data-go>HELP CENTRE</a>
-  <button type="button" class="btn btn-line m-login" id="mLoginBtn">로그인</button>
   <button type="button" class="btn btn-primary" data-book>상담 예약</button>
 </div>
 
@@ -2560,133 +2563,19 @@
     </div>
   </div>
 </dialog>
-<!-- 상담 예약: 학번·이름 로그인(학생명단 확인) → HY-CDP / 라이프디자인센터 직접 예약 -->
-<dialog class="bk-dlg" id="bookDlg" aria-labelledby="bkTitle">
-  <div class="dlg-head"><h3 id="bkTitle">상담 예약</h3><button type="button" class="dlg-x" id="bkClose" aria-label="닫기">×</button></div>
-
-  <!-- 1) 로그인 -->
-  <div class="bk-view" data-view="login">
-    <div class="bk-lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></div>
-    <p class="bk-lead">학번과 이름으로 로그인해 주세요.</p>
-    <form class="bk-login" id="loginForm" novalidate>
-      <label>학번<input name="studentId" required inputmode="numeric" pattern="[0-9]{4,10}" maxlength="10" placeholder="예: 2026012345" autocomplete="off"></label>
-      <label>이름<input name="name" required maxlength="20" placeholder="예: 홍길동" autocomplete="name"></label>
-      <label id="loginPwRow" hidden>관리자 비밀번호<input name="password" type="password" maxlength="60" autocomplete="current-password"></label>
-      <button type="submit" class="btn btn-primary" id="loginSubmit">로그인</button>
-    </form>
-    <p class="bk-msg" id="loginMsg" hidden></p>
-    <p class="bk-sub">※ 상담 예약은 <b>한양YK인터칼리지 1·2학년</b> 학생만 이용할 수 있습니다.<br>학교에 등록된 학번과 이름을 그대로 입력해 주세요.</p>
-  </div>
-
-  <!-- 2) 예약 방법 선택 (투트랙) -->
-  <div class="bk-view" data-view="track" hidden>
-    <p class="bk-hello" id="bkHello"></p>
-    <div class="bk-tracks">
-      <a class="bk-track" id="cdpLink" href="https://cdp.hanyang.ac.kr/" target="_blank" rel="noopener">
-        <span class="bk-tag">TRACK 1</span>
-        <strong>HY-CDP로 예약</strong>
-        <span>학교 통합 시스템 HY-CDP에 로그인한 뒤 <b>상담예약 메뉴</b>에서 라이프디자인센터 또는 아카데믹 어드바이저 상담을 선택해 예약합니다.</span>
-        <em>HY-CDP 열기 ↗</em>
-      </a>
-      <button type="button" class="bk-track direct" data-goview="form">
-        <span class="bk-tag">TRACK 2</span>
-        <strong>라이프디자인센터 직접 예약</strong>
-        <span>원하는 날짜와 시간을 골라 라이프디자인센터에 바로 신청합니다. 확정 안내는 학교 메일로 보내 드립니다.</span>
-        <em>예약 신청하기 →</em>
-      </button>
-    </div>
-    <button type="button" class="bk-admin-link" id="admLink" data-goview="admin" hidden>🗓️ 관리자 · 예약 가능 시간 관리 →</button>
-  </div>
-
-  <!-- 관리자: 날짜별 예약 가능 시간 열기·닫기 (서버 '운영시간' 시트에 저장) -->
-  <div class="bk-view bk-adm" data-view="admin" hidden>
-    <p class="bk-help">날짜를 누르거나 <b>쭉 드래그</b>해서 여러 날을 한 번에 고르세요. 가로로 끌면 한 주, 세로로 끌면 같은 요일, <b>요일 이름</b>을 누르면 그 달 같은 요일 전체가 선택됩니다. 시간을 켜고 끈 뒤 <b>저장</b>하면 학생 달력에 바로 반영됩니다.</p>
-    <div class="cal-nav">
-      <button type="button" id="admPrev" aria-label="이전 달">‹</button>
-      <b id="admMonth"></b>
-      <button type="button" id="admNext" aria-label="다음 달">›</button>
-    </div>
-    <div class="cal-week adm-week" id="admWeek"><button type="button" data-col="0">월</button><button type="button" data-col="1">화</button><button type="button" data-col="2">수</button><button type="button" data-col="3">목</button><button type="button" data-col="4">금</button></div>
-    <div class="cal-grid adm-grid" id="admGrid"></div>
-    <div class="slot-box" id="admBox" hidden>
-      <p class="slot-title"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b id="admDate"></b> 예약 가능 시간</p>
-      <div class="slot-list" id="admSlots"></div>
-      <div class="adm-quick">
-        <button type="button" class="btn btn-line" id="admDefault">기본 시간</button>
-        <button type="button" class="btn btn-line" id="admClose">휴무</button>
-        <button type="button" class="btn btn-primary" id="admSave">저장</button>
-      </div>
-      <div class="adm-bk" id="admBookings" hidden></div>
-    </div>
-    <p class="bk-msg" id="admMsg" hidden></p>
-    <div class="dlg-btns"><button type="button" class="btn btn-line" data-goview="track">이전</button></div>
-  </div>
-
-  <!-- 3) 라이프디자인센터 직접 예약 -->
-  <form class="bk-view bk-form" data-view="form" id="bookForm" hidden novalidate>
-    <p class="bk-prog" id="bkProg" hidden></p>
-    <p class="bk-msg bk-warn" id="bkChangeWarn" hidden>⚠️ 주·다전공 변경 상담은 HY-in 포털에서 변경 신청을 완료하고 센터에 등록된 학생만 예약할 수 있습니다. 변경 신청을 완료했다면 센터로 문의해 주세요.</p>
-
-    <section class="bk-step">
-      <h4><span>01</span>상담 날짜 선택</h4>
-      <p class="bk-help">달력에서 날짜를 누르면 신청 가능한 시간이 표시됩니다. 각 상담은 <b>시작 2시간 전까지</b>만 신청할 수 있어요.</p>
-      <div class="cal-nav">
-        <button type="button" id="calPrev" aria-label="이전 달">‹</button>
-        <b id="calMonth"></b>
-        <button type="button" id="calNext" aria-label="다음 달">›</button>
-      </div>
-      <div class="cal-week"><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span></div>
-      <div class="cal-grid" id="calGrid"></div>
-      <div class="slot-box" id="slotBox" hidden>
-        <p class="slot-title"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b id="slotDate"></b> 가능 시간</p>
-        <div class="slot-legend"><span><i class="ok"></i>신청 가능</span><span><i class="full"></i>마감</span><span><i class="lock"></i>신청불가 (2시간 전 마감)</span><span><i class="lunch"></i>점심시간</span></div>
-        <div class="slot-list" id="slotList"></div>
-      </div>
-      <input type="hidden" name="date"><input type="hidden" name="time">
-    </section>
-
-    <section class="bk-step">
-      <h4><span>02</span>신청 정보</h4>
-      <div class="bk-row">
-        <label>이름<input name="name" readonly></label>
-        <label>학번<input name="studentId" readonly></label>
-      </div>
-      <div class="bk-row">
-        <label>메일 <input name="email" type="email" required maxlength="80" placeholder="예: hong@hanyang.ac.kr"></label>
-        <label><span>연락처 <small>(선택)</small></span><input name="phone" type="tel" maxlength="13" placeholder="010-0000-0000"></label>
-      </div>
-      <div class="bk-row">
-        <label>상담 분야
-          <select name="topic" required>
-            <option value="">선택해 주세요</option>
-            <option>전공 탐색·선택</option>
-            <option>다전공·수강 설계</option>
-            <option>학업 상담</option>
-            <option>진로·커리어</option>
-            <option>웰빙·대학생활</option>
-            <option>기타</option>
-          </select>
-        </label>
-        <label>상담 방식<input value="대면 상담" readonly></label>
-      </div>
-      <label><span>상담받고 싶은 내용 <small>(선택)</small></span><textarea name="memo" rows="3" maxlength="500" placeholder="관심 전공, 고민되는 점, 궁금한 질문 등을 간단히 적어 주세요."></textarea></label>
-      <label class="bk-agree"><input type="checkbox" name="agree" required> 상담 예약을 위한 개인정보(이름, 메일, 학번, 연락처) 수집·이용에 동의합니다.</label>
-    </section>
-
-    <p class="bk-msg" id="bookMsg" hidden></p>
-    <div class="dlg-btns">
-      <button type="button" class="btn btn-line" data-goview="track">이전</button>
-      <button type="submit" class="btn btn-primary" id="bookSubmit">예약 신청</button>
-    </div>
-  </form>
-
-  <!-- 4) 접수 완료 -->
-  <div class="bk-view" data-view="done" hidden>
-    <div class="bk-lock ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-    <p class="bk-lead">예약 신청이 접수되었습니다.</p>
-    <p class="bk-sub" id="doneText"></p>
-    <div class="dlg-btns center"><button type="button" class="btn btn-primary" id="bkDoneClose">확인</button></div>
-  </div>
+<!-- 상담 신청: HY-CDP로 연결 -->
+<dialog class="bk-dlg cdp-dlg" id="bookDlg" aria-labelledby="bkTitle">
+  <div class="dlg-head"><h3 id="bkTitle">상담 신청 방법</h3><button type="button" class="dlg-x" id="bkClose" aria-label="닫기">×</button></div>
+  <ol class="cdp-steps">
+    <li><span class="cdp-no">01</span><p>HY-CDP 접속<a href="https://cdp.hanyang.ac.kr/" target="_blank" rel="noopener">https://cdp.hanyang.ac.kr/</a></p><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z"/></svg></li>
+    <li><span class="cdp-no">02</span><p>한양대학교 포털 ID로 로그인</p><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></li>
+    <li><span class="cdp-no">03</span><p>메인 화면에서 [상담예약] 메뉴 선택</p><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 10l10 3.5-4.5 2-2 4.5z"/><path d="M6 3v3M3 6h3M4 12l2-1.5M12 4l-1.5 2"/></svg></li>
+    <li><span class="cdp-no">04</span><p>상담 기관에서 [라이프디자인센터] 또는 [아카데믹 어드바이저] 선택</p><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><path d="M15.5 4.8a3.5 3.5 0 0 1 0 6.400M18 14.5c1.700.9 2.700 2.8 3 5.5"/></svg></li>
+    <li><span class="cdp-no">05</span><p>원하는 상담 날짜 및 시간 선택</p><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="15" rx="2"/><path d="M4 10h16M8.5 3v4M15.5 3v4M8 14h2M14 14h2M8 17h2"/></svg></li>
+    <li><span class="cdp-no">06</span><p>상담 신청 완료</p><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16 9.5"/></svg></li>
+    <li><span class="cdp-no">07</span><p>신청 완료 후, 담당 아카데믹 어드바이저가 접수 완료 안내 메일을 발송해 드립니다.</p><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12.5" rx="2"/><path d="M4 7l8 6 8-6"/></svg></li>
+  </ol>
+  <a class="btn btn-primary cdp-go" href="https://cdp.hanyang.ac.kr/" target="_blank" rel="noopener">HY-CDP 바로가기 ↗</a>
 </dialog>
 
 <!-- HELP CENTRE 질문 목록: 질문리스트.txt(질문	답변	분류	하위분류) 그대로, 빈 줄만 제거 -->
@@ -3656,436 +3545,16 @@ HIC4027|환경과건강|전공심화|400단위|2|2|0|4|2학기|2028|1학기|2030
     dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
   })();
 
-  // ---------- 로그인(학번·이름 → 구글 시트 '학생명단' 확인) + 상담 예약 ----------
-  // 설정: booking/README.md 참고. BOOKING_API를 채워야 로그인·직접 예약이 동작함
-  const AUTH = {
-    BOOKING_API: 'https://script.google.com/macros/s/AKfycbx8CYLuG1ybZCn_mncLOAmi_BNmrLS7sVJVQQLWLn21excr-2iFIZ18Ls_oYhDWogwd/exec',   // booking/code.gs 웹앱 URL
-    LOGIN_HOURS: 3,                                  // 로그인 유지 시간 (탭을 닫으면 바로 로그아웃)
-    ALL_SLOTS: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],   // 관리자가 열 수 있는 시간 (각 50분, code.gs ALL_SLOTS 와 같게)
-    LUNCH: '12:00',                                  // 점심시간: 열려 있지 않으면 '점심시간'으로 표시
-    TIMES: ['10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'],            // 기본 예약 가능 시간 (code.gs TIMES 와 같게)
-  };
+  // ---------- 상담 신청: 상담 예약 버튼 → HY-CDP 안내 창 ----------
   (() => {
-    const KEY = 'ldc-auth';
     const dlg = document.getElementById('bookDlg');
-    const form = document.getElementById('bookForm');
-    const fe = form.elements;
-    const loginMsg = document.getElementById('loginMsg');
-    const bookMsg = document.getElementById('bookMsg');
-    const loginForm = document.getElementById('loginForm');
-    const admView = dlg.querySelector('[data-view="admin"]');
-    let user = null, afterLogin = null;
-
-    // 저장된 로그인(탭을 닫으면 사라짐, LOGIN_HOURS 지나면 다시 로그인)
-    try { user = JSON.parse(sessionStorage.getItem(KEY)); } catch (e) {}
-    if (!user || !user.studentId || user.exp * 1000 < Date.now()) user = null;
-
-    function show(view) {
-      dlg.querySelectorAll('.bk-view').forEach(v => v.hidden = v.dataset.view !== view);
-      document.getElementById('bkTitle').textContent = { login: '로그인', track: '상담 예약', form: '라이프디자인센터 직접 예약', done: '상담 예약', admin: '예약 가능 시간 관리' }[view];
-      if (view === 'login') prepareLogin();
-      if (view === 'track' && user) {
-        document.getElementById('bkHello').innerHTML = `<b>${esc(user.name)}</b> (${esc(user.studentId)}) 님, 예약 방법을 선택해 주세요.`;
-        document.getElementById('admLink').hidden = !user.admin;
-      }
-      if (view === 'admin') prepareAdmin();
-      if (view === 'form') prepareForm();
-    }
-    function msg(el, text, info) { el.textContent = text; el.hidden = !text; el.classList.toggle('info', !!info); }
-
-    function renderUser() {
-      const on = !!user;
-      document.getElementById('loginBtn').hidden = on;
-      document.getElementById('mLoginBtn').hidden = on;
-      document.getElementById('userChip').hidden = !on;
-      if (on) {
-        document.getElementById('userName').textContent = user.name;
-        const pic = document.getElementById('userPic');
-        pic.hidden = !user.picture;
-        if (user.picture) pic.src = user.picture;
-      }
-    }
-
-    function prepareLogin() {
-      if (!AUTH.BOOKING_API) msg(loginMsg, '로그인 설정(예약 접수 주소)이 아직 등록되지 않았습니다. 관리자에게 문의해 주세요.', true);
-      setTimeout(() => loginForm.elements.studentId.focus(), 50);
-    }
-
-    // 학번·이름을 서버(Apps Script)로 보내 '학생명단' 시트와 맞는지 확인. 명단은 홈페이지에 두지 않음
-    loginForm.addEventListener('submit', async e => {
-      e.preventDefault();
-      const lf = loginForm.elements;
-      const studentId = lf.studentId.value.trim(), name = lf.name.value.trim(), password = lf.password.value;
-      if (!/^[0-9]{4,10}$/.test(studentId)) return msg(loginMsg, '학번을 숫자로 정확히 입력해 주세요.');
-      if (!name) return msg(loginMsg, '이름을 입력해 주세요.');
-      if (!AUTH.BOOKING_API) return prepareLogin();
-      const btn = document.getElementById('loginSubmit');
-      btn.disabled = true; btn.textContent = '확인 중…';
-      try {
-        const r = await fetch(AUTH.BOOKING_API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', studentId, name, password }) });
-        const j = await r.json();
-        // 관리자 학번이면 서버가 비밀번호를 한 번 더 요구함
-        if (j.needPassword) { document.getElementById('loginPwRow').hidden = false; lf.password.focus(); throw new Error(j.message); }
-        if (!j.ok) throw new Error(j.message || '학번과 이름을 다시 확인해 주세요.');
-        user = { studentId: j.studentId, name: j.name, email: j.email || '', change: !!j.change, admin: !!j.admin, adminToken: j.adminToken || '', exp: Math.floor(Date.now() / 1000) + AUTH.LOGIN_HOURS * 3600 };
-        try { sessionStorage.setItem(KEY, JSON.stringify(user)); } catch (e) {}
-        loginForm.reset();
-        document.getElementById('loginPwRow').hidden = true;
-        msg(loginMsg, '');
-        renderUser();
-        if (afterLogin) { const next = afterLogin; afterLogin = null; next(); } else dlg.close();
-      } catch (err) {
-        msg(loginMsg, err.message || '네트워크 오류로 확인하지 못했습니다. 잠시 후 다시 시도해 주세요.');
-      } finally {
-        btn.disabled = false; btn.textContent = '로그인';
-      }
-    });
-
-    // 로그인해야만 예약 가능
-    // opts.direct: 프로그램 카드에서 온 경우 방법 선택 없이 바로 달력 예약 / opts.topic: 상담 분야 미리 선택
-    function openBooking(opts = {}) {
-      if (user && user.exp * 1000 < Date.now()) { user = null; renderUser(); }
-      msg(loginMsg, ''); msg(bookMsg, '');
-      const go = () => {
-        show(opts.direct ? 'form' : 'track');
-        const prog = document.getElementById('bkProg');
-        prog.hidden = !opts.topic;
-        if (opts.topic) {
-          prog.textContent = '선택한 프로그램 · ' + opts.topic;
-          if (![...fe.topic.options].some(o => o.value === opts.topic)) fe.topic.add(new Option(opts.topic, opts.topic), 1);
-          fe.topic.value = opts.topic;
-        }
-        checkTopic();
-      };
-      if (user) go();
-      else { afterLogin = go; show('login'); }
-      if (!dlg.open) dlg.showModal();
-    }
-    // 주·다전공 변경 상담: 학생명단 D열에 '변경상담'이 있는 학생만 (서버에서도 다시 확인)
-    const CHANGE_TOPIC = /변경\s*상담/;
-    function checkTopic() {
-      const blocked = !!user && CHANGE_TOPIC.test(fe.topic.value) && !user.change;
-      document.getElementById('bookSubmit').disabled = blocked;
-      document.getElementById('bkChangeWarn').hidden = !blocked;
-      if (blocked) msg(bookMsg, '주·다전공 변경 상담은 HY-in 포털에서 변경 신청을 완료하고 센터에 등록된 학생만 예약할 수 있습니다.\n변경 신청을 완료했다면 센터로 문의해 주세요. (다른 상담 분야는 예약할 수 있어요)');
-      else if (CHANGE_TOPIC.test(bookMsg.textContent)) msg(bookMsg, '');
-    }
-    fe.topic.addEventListener('change', checkTopic);
-
     document.querySelectorAll('[data-book]').forEach(b => b.addEventListener('click', e => {
       e.preventDefault();
       document.getElementById('mMenu').classList.remove('open');
-      openBooking({ direct: 'direct' in b.dataset, topic: b.dataset.topic || '' });
+      if (!dlg.open) dlg.showModal();
     }));
-    ['loginBtn', 'mLoginBtn'].forEach(id => document.getElementById(id).addEventListener('click', () => {
-      afterLogin = null; msg(loginMsg, ''); show('login'); dlg.showModal();
-    }));
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      user = null;
-      try { sessionStorage.removeItem(KEY); } catch (e) {}
-      renderUser();
-    });
-    dlg.addEventListener('click', e => {
-      const v = e.target.closest('[data-goview]');
-      if (v) show(v.dataset.goview);
-      if (e.target === dlg) dlg.close();
-    });
     document.getElementById('bkClose').onclick = () => dlg.close();
-    document.getElementById('bkDoneClose').onclick = () => dlg.close();
-
-    // ---------- 직접 예약: 월 달력 + 시간 슬롯 (각 상담 시작 2시간 전 마감) ----------
-    const LEAD_MS = 2 * 60 * 60 * 1000;
-    const pad = n => String(n).padStart(2, '0');
-    const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-    const slotStart = (date, time) => new Date(`${date}T${time}:00`);
-    const slotEnd = t => `${t.slice(0, 2)}:50`;
-    const isLocked = (date, time) => slotStart(date, time) - Date.now() < LEAD_MS;
-    const monthData = {};                  // { 'YYYY-MM': { taken: { 'YYYY-MM-DD': ['10:00', …] }, open: { 'YYYY-MM-DD': [...] } } }
-    let calMonth = null, selDate = '';
-
-    async function loadMonth(key, force) {
-      if ((monthData[key] && !force) || !AUTH.BOOKING_API) return;
-      try {
-        const r = await fetch(`${AUTH.BOOKING_API}?action=month&month=${key}`);
-        const j = await r.json();
-        monthData[key] = { taken: j.taken || {}, open: j.open || {} };
-        if (!form.hidden) { renderCal(); renderSlots(); }
-        if (!admView.hidden) { renderAdmCal(); renderAdmSlots(); }
-      } catch (e) { /* 조회 실패해도 신청은 서버에서 다시 확인 */ }
-    }
-    const takenOn = date => ((monthData[date.slice(0, 7)] || {}).taken || {})[date] || [];
-    // 예약 가능 시간: 서버(관리자 설정) 값, 아직 못 불러왔으면 평일 기본 시간
-    const openOn = date => {
-      const m = monthData[date.slice(0, 7)];
-      if (m && m.open[date]) return m.open[date];
-      const wd = new Date(`${date}T00:00:00`).getDay();
-      return m || wd === 0 || wd === 6 ? [] : AUTH.TIMES;
-    };
-    const openCount = date => openOn(date).filter(t => !takenOn(date).includes(t) && !isLocked(date, t)).length;
-
-    function renderCal() {
-      const y = calMonth.getFullYear(), m = calMonth.getMonth();
-      const now = new Date(), first = new Date(now.getFullYear(), now.getMonth(), 1);
-      document.getElementById('calMonth').textContent = `${y}년 ${m + 1}월`;
-      document.getElementById('calPrev').disabled = calMonth <= first;
-      document.getElementById('calNext').disabled = (y - first.getFullYear()) * 12 + m - first.getMonth() >= 2;   // 이번 달 포함 3개월
-      // 이번 달은 이번 주 월요일부터만 보여 줌 (지난 주는 생략)
-      const wk = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
-      let html = '', started = false;
-      for (let d = 1; d <= new Date(y, m + 1, 0).getDate(); d++) {
-        const dt = new Date(y, m, d), wd = dt.getDay();
-        if (wd === 0 || wd === 6 || dt < wk) continue;
-        if (!started) { html += '<span class="cal-empty"></span>'.repeat(wd - 1); started = true; }
-        const key = ymd(dt), open = openCount(key), total = openOn(key).length, past = key < ymd(now);
-        const cls = ['cal-day', key === selDate && 'sel', !past && !total && 'closed', !past && total && open === 0 && 'full'].filter(Boolean).join(' ');
-        html += `<button type="button" class="${cls}" data-date="${key}"${past || open === 0 ? ' disabled' : ''}><b>${d}</b><small>${past ? '지남' : !total ? '휴무' : open === 0 ? '마감' : `${open}/${total}`}</small></button>`;
-      }
-      document.getElementById('calGrid').innerHTML = html;
-      loadMonth(`${y}-${pad(m + 1)}`);
-    }
-
-    function renderSlots() {
-      const box = document.getElementById('slotBox');
-      box.hidden = !selDate;
-      if (!selDate) return;
-      document.getElementById('slotDate').textContent = md(selDate);
-      const taken = takenOn(selDate), open = openOn(selDate);
-      // 열린 시간만 보여 주고, 점심시간이 닫혀 있는데 앞뒤로 상담이 있으면 '점심시간' 칸 표시
-      const lunch = !open.includes(AUTH.LUNCH) && open.some(t => t < AUTH.LUNCH) && open.some(t => t > AUTH.LUNCH);
-      const shown = AUTH.ALL_SLOTS.filter(t => open.includes(t) || (lunch && t === AUTH.LUNCH));
-      document.getElementById('slotList').innerHTML = shown.map(t => {
-        if (!open.includes(t)) return `<button type="button" class="slot lunch" disabled>🍱 점심시간<small>${t}~${slotEnd(t)}</small></button>`;
-        const label = `${t}~${slotEnd(t)}`;
-        if (taken.includes(t)) return `<button type="button" class="slot full" disabled>${label}<small>마감</small></button>`;
-        if (isLocked(selDate, t)) return `<button type="button" class="slot lock" disabled>${label}<small>신청불가</small></button>`;
-        return `<button type="button" class="slot${fe.time.value === t ? ' on' : ''}" data-time="${t}">${label}<small>신청 가능</small></button>`;
-      }).join('');
-    }
-
-    document.getElementById('calGrid').addEventListener('click', e => {
-      const b = e.target.closest('[data-date]');
-      if (!b) return;
-      selDate = b.dataset.date; fe.date.value = selDate; fe.time.value = '';
-      msg(bookMsg, '');
-      renderCal(); renderSlots();
-    });
-    document.getElementById('slotList').addEventListener('click', e => {
-      const b = e.target.closest('[data-time]');
-      if (!b) return;
-      fe.time.value = b.dataset.time;
-      renderSlots();
-    });
-    document.getElementById('calPrev').onclick = () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCal(); };
-    document.getElementById('calNext').onclick = () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); renderCal(); };
-    // 창이 열려 있는 동안 1분마다 다시 그려 2시간 전 마감을 반영
-    setInterval(() => { if (dlg.open && !form.hidden) { renderCal(); renderSlots(); } }, 60000);
-
-    // ---------- 관리자: 예약 가능 시간 열기·닫기 (드래그로 여러 날) + 예약 취소 ----------
-    const admMsg = document.getElementById('admMsg');
-    const admGrid = document.getElementById('admGrid');
-    const admBook = {};                    // { 'YYYY-MM': { 'YYYY-MM-DD': [{ row, time, name, studentId, … }] } } — 관리자 전용
-    let admMonth = null, admDates = [], admSel = [], drag = null;
-    const api = body => fetch(AUTH.BOOKING_API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ adminToken: user.adminToken, ...body }) }).then(r => r.json());
-    const admExpired = err => { if (/로그인/.test(err.message)) { user = null; try { sessionStorage.removeItem(KEY); } catch (e) {} renderUser(); } };
-
-    function prepareAdmin() {
-      if (!user || !user.admin) return show('track');
-      const now = new Date();
-      admMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-      admDates = []; msg(admMsg, '');
-      for (const k in monthData) delete monthData[k];   // 최신 예약·운영시간으로 다시 불러옴
-      for (const k in admBook) delete admBook[k];
-      renderAdmCal(); renderAdmSlots();
-    }
-    async function loadAdmBookings(key) {
-      if (admBook[key] || !AUTH.BOOKING_API) return;
-      try {
-        const j = await api({ action: 'adminMonth', month: key });
-        if (!j.ok) throw new Error(j.message);
-        admBook[key] = j.bookings || {};
-        renderAdmCal(); renderAdmSlots();
-      } catch (err) { msg(admMsg, err.message || '예약 목록을 불러오지 못했습니다.'); admExpired(err); }
-    }
-    const bookingsOn = date => ((admBook[date.slice(0, 7)] || {})[date] || []).slice().sort((a, b) => a.time < b.time ? -1 : 1);
-
-    function renderAdmCal() {
-      const y = admMonth.getFullYear(), m = admMonth.getMonth(), now = new Date();
-      const first = new Date(now.getFullYear(), now.getMonth(), 1);
-      document.getElementById('admMonth').textContent = `${y}년 ${m + 1}월`;
-      document.getElementById('admPrev').disabled = admMonth <= first;
-      document.getElementById('admNext').disabled = (y - first.getFullYear()) * 12 + m - first.getMonth() >= 2;
-      const wk = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));   // 이번 주 월요일부터
-      let html = '', started = false;
-      for (let d = 1; d <= new Date(y, m + 1, 0).getDate(); d++) {
-        const dt = new Date(y, m, d), wd = dt.getDay();
-        if (wd === 0 || wd === 6 || dt < wk) continue;
-        if (!started) { html += '<span class="cal-empty"></span>'.repeat(wd - 1); started = true; }
-        const key = ymd(dt), past = key < ymd(now), n = openOn(key).length, k = bookingsOn(key).length;
-        const cls = ['cal-day', admDates.includes(key) && 'sel', !past && !n && 'closed'].filter(Boolean).join(' ');
-        html += `<button type="button" class="${cls}" data-date="${key}"${past ? ' disabled' : ''}>${k ? `<i class="bk-cnt" title="예약 ${k}건">${k}</i>` : ''}<b>${d}</b><small>${past ? '지남' : n ? `${n}개` : '휴무'}</small></button>`;
-      }
-      admGrid.innerHTML = html;
-      const key = `${y}-${pad(m + 1)}`;
-      loadMonth(key); loadAdmBookings(key);
-    }
-    function paintSel() { admGrid.querySelectorAll('[data-date]').forEach(b => b.classList.toggle('sel', admDates.includes(b.dataset.date))); }
-    function selectionChanged() {
-      admDates.sort();
-      admSel = admDates.length ? [...openOn(admDates[0])] : [];
-      msg(admMsg, '');
-      paintSel(); renderAdmSlots();
-    }
-
-    function renderAdmSlots() {
-      const box = document.getElementById('admBox');
-      box.hidden = !admDates.length;
-      if (!admDates.length) return;
-      const one = admDates.length === 1;
-      document.getElementById('admDate').textContent = one ? md(admDates[0]) : `${admDates.length}일 · ${md(admDates[0])}~${md(admDates[admDates.length - 1])}`;
-      const taken = one ? takenOn(admDates[0]) : [];
-      document.getElementById('admSlots').innerHTML = AUTH.ALL_SLOTS.map(t => {
-        const on = admSel.includes(t);
-        return `<button type="button" class="slot${on ? ' on' : ' off'}" data-adm="${t}" aria-pressed="${on}">${t}~${slotEnd(t)}<small>${taken.includes(t) ? '예약 있음' : on ? '열림' : '닫힘'}</small></button>`;
-      }).join('');
-      // 하루만 골랐을 때: 그날 예약한 학생 목록 + 취소
-      const list = document.getElementById('admBookings');
-      list.hidden = !one;
-      if (!one) return;
-      const bks = bookingsOn(admDates[0]);
-      list.innerHTML = `<h5>${md(admDates[0])} 예약 ${bks.length}건</h5>` + (bks.length
-        ? '<ul>' + bks.map(b => `<li><span class="t">${esc(b.time)}</span><div class="who"><b>${esc(b.name)}</b> (${esc(b.studentId)})<span>${esc(b.topic)}${b.phone ? ' · ' + esc(b.phone) : ''}${b.memo ? ' · ' + esc(b.memo) : ''}</span></div><button type="button" class="cancel" data-row="${b.row}" data-time="${esc(b.time)}">예약 취소</button></li>`).join('') + '</ul>'
-        : `<p class="none">${admBook[admDates[0].slice(0, 7)] ? '예약이 없습니다.' : '예약 목록을 불러오는 중…'}</p>`);
-    }
-
-    // 드래그 선택: 누른 칸과 지금 칸을 꼭짓점으로 하는 사각형 (가로 = 주, 세로 = 요일)
-    const cellAt = (x, y) => { const el = document.elementFromPoint(x, y); return el && el.closest('#admGrid > *'); };
-    const cellPos = el => { const i = [...admGrid.children].indexOf(el); return { r: Math.floor(i / 5), c: i % 5 }; };
-    function rectSelect(a, b) {
-      const p = cellPos(a), q = cellPos(b);
-      const r0 = Math.min(p.r, q.r), r1 = Math.max(p.r, q.r), c0 = Math.min(p.c, q.c), c1 = Math.max(p.c, q.c);
-      admDates = [...admGrid.children].filter((el, i) => {
-        const r = Math.floor(i / 5), c = i % 5;
-        return r >= r0 && r <= r1 && c >= c0 && c <= c1 && el.dataset.date && !el.disabled;
-      }).map(el => el.dataset.date);
-      paintSel();
-    }
-    admGrid.addEventListener('pointerdown', e => {
-      const b = e.target.closest('[data-date]');
-      if (!b || b.disabled) return;
-      e.preventDefault();
-      drag = { start: b };
-      rectSelect(b, b);
-    });
-    window.addEventListener('pointermove', e => {
-      if (!drag) return;
-      const el = cellAt(e.clientX, e.clientY);
-      if (el) rectSelect(drag.start, el);
-    });
-    ['pointerup', 'pointercancel'].forEach(t => window.addEventListener(t, () => { if (drag) { drag = null; selectionChanged(); } }));
-    // 요일 이름 누르기: 그 달의 같은 요일 전체
-    document.getElementById('admWeek').addEventListener('click', e => {
-      const b = e.target.closest('[data-col]');
-      if (!b) return;
-      const col = +b.dataset.col;
-      admDates = [...admGrid.children].filter((el, i) => i % 5 === col && el.dataset.date && !el.disabled).map(el => el.dataset.date);
-      selectionChanged();
-    });
-
-    document.getElementById('admSlots').addEventListener('click', e => {
-      const b = e.target.closest('[data-adm]');
-      if (!b) return;
-      const t = b.dataset.adm;
-      admSel = AUTH.ALL_SLOTS.filter(x => x === t ? !admSel.includes(t) : admSel.includes(x));
-      renderAdmSlots();
-    });
-    document.getElementById('admDefault').onclick = () => { admSel = [...AUTH.TIMES]; renderAdmSlots(); };
-    document.getElementById('admClose').onclick = () => { admSel = []; renderAdmSlots(); };
-    const admGo = n => { admMonth = new Date(admMonth.getFullYear(), admMonth.getMonth() + n, 1); admDates = []; renderAdmCal(); renderAdmSlots(); };
-    document.getElementById('admPrev').onclick = () => admGo(-1);
-    document.getElementById('admNext').onclick = () => admGo(1);
-
-    document.getElementById('admSave').onclick = async () => {
-      if (!admDates.length) return;
-      const btn = document.getElementById('admSave');
-      btn.disabled = true; btn.textContent = '저장 중…';
-      try {
-        const j = await api({ action: 'setSlots', dates: admDates, times: admSel });
-        if (!j.ok) throw new Error(j.message || '저장하지 못했습니다.');
-        admDates.forEach(d => { const mk = d.slice(0, 7); if (monthData[mk]) monthData[mk].open[d] = j.open; });
-        msg(admMsg, `${admDates.length === 1 ? md(admDates[0]) : admDates.length + '일'} 예약 가능 시간을 저장했습니다. (${j.open.length ? j.open.join(', ') : '휴무'})`, true);
-        renderAdmCal();
-      } catch (err) {
-        msg(admMsg, err.message || '네트워크 오류로 저장하지 못했습니다.');
-        admExpired(err);
-      } finally {
-        btn.disabled = false; btn.textContent = '저장';
-      }
-    };
-
-    document.getElementById('admBookings').addEventListener('click', async e => {
-      const b = e.target.closest('.cancel');
-      if (!b) return;
-      const date = admDates[0], bk = bookingsOn(date).find(x => String(x.row) === b.dataset.row);
-      if (!bk || !confirm(`${bk.name}(${bk.studentId}) 학생의 ${md(date)} ${bk.time} 예약을 취소할까요?\n센터 캘린더 일정이 지워지고, 학생에게 취소 안내 메일이 발송됩니다.`)) return;
-      b.disabled = true; b.textContent = '취소 중…';
-      try {
-        const j = await api({ action: 'cancelBooking', row: bk.row, date, time: bk.time });
-        if (!j.ok) throw new Error(j.message || '취소하지 못했습니다.');
-        const mk = date.slice(0, 7);
-        admBook[mk][date] = admBook[mk][date].filter(x => x.row !== bk.row);
-        if (monthData[mk] && monthData[mk].taken[date]) monthData[mk].taken[date] = monthData[mk].taken[date].filter(t => t !== bk.time);
-        msg(admMsg, `${bk.name} 학생의 ${md(date)} ${bk.time} 예약을 취소했습니다.`, true);
-        renderAdmCal(); renderAdmSlots();
-      } catch (err) {
-        msg(admMsg, err.message || '네트워크 오류로 취소하지 못했습니다.');
-        b.disabled = false; b.textContent = '예약 취소';
-        admExpired(err);
-      }
-    });
-
-    function prepareForm() {
-      if (!user) return show('login');
-      fe.name.value = user.name; fe.studentId.value = user.studentId;
-      // 학생명단에 메일이 있으면 그대로, 없으면 학생이 직접 입력
-      fe.email.value = user.email; fe.email.readOnly = !!user.email;
-      const now = new Date();
-      calMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-      selDate = ''; fe.date.value = ''; fe.time.value = '';
-      for (const k in monthData) delete monthData[k];   // 최신 예약·운영시간으로 다시 불러옴
-      renderCal(); renderSlots();
-      msg(bookMsg, AUTH.BOOKING_API ? '' : '직접 예약 접수 주소가 아직 설정되지 않아 신청을 보낼 수 없습니다. 지금은 HY-CDP로 예약해 주세요.', !AUTH.BOOKING_API);
-      checkTopic();
-    }
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (!user) return show('login');
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      if (!fe.date.value || !fe.time.value) { msg(bookMsg, '달력에서 날짜와 시간을 선택해 주세요.'); return; }
-      if (isLocked(fe.date.value, fe.time.value)) { msg(bookMsg, '상담 시작 2시간 전까지만 신청할 수 있습니다. 다른 시간을 선택해 주세요.'); fe.time.value = ''; renderSlots(); return; }
-      if (!AUTH.BOOKING_API) return;
-      const btn = document.getElementById('bookSubmit');
-      btn.disabled = true; btn.textContent = '보내는 중…';
-      try {
-        const body = { studentId: user.studentId, name: user.name, email: fe.email.value.trim(), phone: fe.phone.value.trim(), topic: fe.topic.value,
-          date: fe.date.value, time: fe.time.value, mode: '대면', memo: fe.memo.value.trim() };
-        // text/plain 으로 보내야 Apps Script가 별도 사전요청(CORS) 없이 받음
-        const r = await fetch(AUTH.BOOKING_API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
-        const j = await r.json();
-        if (!j.ok) throw new Error(j.message || '예약을 접수하지 못했습니다.');
-        document.getElementById('doneText').innerHTML = `${esc(md(body.date))} ${body.time} · ${esc(body.mode)} · ${esc(body.topic)}<br>센터 캘린더에 등록되었고, 확인 메일을 <b>${esc(body.email)}</b>로 보내 드렸습니다.`;
-        const mk = body.date.slice(0, 7);
-        if (monthData[mk]) (monthData[mk].taken[body.date] = monthData[mk].taken[body.date] || []).push(body.time);
-        form.reset();
-        show('done');
-      } catch (err) {
-        msg(bookMsg, err.message || '네트워크 오류로 접수하지 못했습니다. 잠시 후 다시 시도해 주세요.');
-        if (/로그인/.test(err.message)) { user = null; try { sessionStorage.removeItem(KEY); } catch (e) {} renderUser(); }
-      } finally {
-        btn.disabled = false; btn.textContent = '예약 신청';
-      }
-    });
-
-    renderUser();
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   })();
 
   // 동작 줄이기 설정이면 SVG 내부 애니메이션도 멈춤
